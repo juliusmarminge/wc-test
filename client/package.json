@@ -1,5 +1,5 @@
 {
-  "name": "@examples/minimal-react-client",
+  "name": "client",
   "private": true,
   "version": "10.13.0",
   "type": "module",
