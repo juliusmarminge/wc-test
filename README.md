@@ -1,20 +1,19 @@
-# Express Minimal Example
+# A minimal React tRPC example
 
-## Includes
+Requires node 18 (for global fetch).
 
-- Express server
-- Vanilla TRPCClient in Node
-
-## Usage
-
-Run the server and client:
+## Playing around
 
 ```bash
-yarn start
+npm i
+npm run dev
 ```
 
-Tip: Try changing either the procedure name or it's input on the server and see the client type-erroring.
+Try editing the ts files to see the type checking in action :)
 
----
+## Building
 
-Created by [Julius](https://github.com/juliusmarminge).
+```bash
+npm run build
+npm run start
+```
