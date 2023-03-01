@@ -2,10 +2,10 @@
  * This is the API-handler of your app that contains all your API routes.
  * On a bigger app, you will probably want to split this file up into multiple files.
  */
-import { initTRPC } from '@trpc/server';
-import { createHTTPHandler } from '@trpc/server/adapters/standalone';
-import http from 'http';
-import { z } from 'zod';
+import { initTRPC } from "@trpc/server";
+import { createHTTPHandler } from "@trpc/server/adapters/standalone";
+import { createServer } from "http";
+import { z } from "zod";
 
 const t = initTRPC.create();
 
@@ -21,12 +21,12 @@ const appRouter = router({
         .object({
           name: z.string().nullish(),
         })
-        .nullish(),
+        .nullish()
     )
     .query(({ input }) => {
       // This is what you're returning to your client
       return {
-        text: `hello ${input?.name ?? 'world'}`,
+        text: `hello ${input?.name ?? "world"}`,
         // 💡 Tip: Try adding a new property here and see it propagate to the client straight-away
       };
     }),
@@ -40,17 +40,17 @@ export type AppRouter = typeof appRouter;
 const handler = createHTTPHandler({
   router: appRouter,
   createContext() {
-    console.log('context 3');
+    console.log("context 3");
     return {};
   },
 });
 
-const server = http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Request-Method', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  if (req.method === 'OPTIONS') {
+const server = createServer((req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Request-Method", "*");
+  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  if (req.method === "OPTIONS") {
     res.writeHead(200);
     return res.end();
   }
