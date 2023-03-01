@@ -6,12 +6,6 @@ import { useState } from "react";
 import { Greeting } from "./Greeting";
 import { trpc } from "./utils/trpc";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
 function App() {
   const [queryClient] = useState(
     () =>
@@ -40,3 +34,9 @@ function App() {
     </trpc.Provider>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
