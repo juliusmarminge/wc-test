@@ -3,9 +3,9 @@
  * On a bigger app, you will probably want to split this file up into multiple files.
  */
 import { initTRPC } from "@trpc/server";
-import { createHTTPHandler } from "@trpc/server/adapters/standalone";
-import { createServer } from "http";
+import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { z } from "zod";
+import cors from "cors";
 
 const t = initTRPC.create();
 
@@ -36,25 +36,12 @@ const appRouter = router({
 // None of the actual implementation is exposed to the client
 export type AppRouter = typeof appRouter;
 
-// create handler
-const handler = createHTTPHandler({
+// create server and listen for requests
+createHTTPServer({
+  middleware: cors(),
   router: appRouter,
-  createContext() {
-    console.log("context 3");
-    return {};
+  createContext({ req, res }) {
+    console.log("Incoming request");
+    return {}; // { req, res };
   },
-});
-
-const server = createServer((req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Request-Method", "*");
-  res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  if (req.method === "OPTIONS") {
-    res.writeHead(200);
-    return res.end();
-  }
-  handler(req, res);
-});
-
-server.listen(2022);
+}).listen(2022);
