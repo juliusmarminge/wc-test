@@ -2,9 +2,13 @@
   "name": "@examples/minimal-react",
   "private": true,
   "version": "10.13.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "dev:client": "pnpm -F client dev",
-    "dev:server": "pnpm -F server dev",
+    "dev:client": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
     "dev": "run-p dev:*"
   },
   "devDependencies": {
